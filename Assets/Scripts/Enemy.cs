@@ -43,7 +43,7 @@ public class Enemy : LivingEntity
             targetEntity.OnDeath += OnTargetDeath;
 
             myCollisionRadius = GetComponent<CapsuleCollider>().radius;
-            targetCollisionRadius = target.GetComponent<CapsuleCollider>().radius;
+            targetCollisionRadius = target.GetComponentInChildren<CapsuleCollider>().radius;
             StartCoroutine(UpdatePath());
         }
     }
