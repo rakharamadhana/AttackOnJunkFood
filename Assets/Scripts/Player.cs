@@ -19,6 +19,8 @@ public class Player : LivingEntity
     float forwardAmount;
     float turnAmount;
 
+    bool isGrounded;
+
     PlayerController controller;
     GunController gunController;
 
@@ -32,6 +34,8 @@ public class Player : LivingEntity
         viewCamera = Camera.main;
 
         camT = Camera.main.transform;
+
+        isGrounded = true;
     }
 
     // Update is called once per frame
@@ -80,6 +84,20 @@ public class Player : LivingEntity
         if(Input.GetButton("Fire1"))
         {
             gunController.Shoot();
+        }
+
+        // Jump Input
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (isGrounded)
+            {
+                anim.SetTrigger("Jump");
+                isGrounded = false;
+            }
+            else
+            {
+                isGrounded = true;
+            }
         }
     }
 
