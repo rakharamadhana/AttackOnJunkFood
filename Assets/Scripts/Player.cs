@@ -7,6 +7,7 @@ using UnityEngine;
 public class Player : LivingEntity
 {
     public float moveSpeed = 5;
+    public Crosshairs crosshairs;
 
     Animator anim;
 
@@ -28,6 +29,10 @@ public class Player : LivingEntity
     protected override void Start()
     {
         base.Start();
+    }
+
+    private void Awake()
+    {
         anim = GetComponentInChildren<Animator>();
         controller = GetComponent<PlayerController>();
         gunController = GetComponent<GunController>();
@@ -36,6 +41,14 @@ public class Player : LivingEntity
         camT = Camera.main.transform;
 
         isGrounded = true;
+
+        FindObjectOfType<Spawner>().OnNewWave += OnNewWave;
+    }
+
+    void OnNewWave(int waveNumber)
+    {
+        health = startingHealth;
+        gunController.EquipGun(waveNumber - 1);
     }
 
     // Update is called once per frame
@@ -70,7 +83,7 @@ public class Player : LivingEntity
 
         // Look Input
         Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.up * gunController.GunHeight);
         float rayDistance;
 
         if(groundPlane.Raycast(ray, out rayDistance))
@@ -78,12 +91,28 @@ public class Player : LivingEntity
             Vector3 point = ray.GetPoint(rayDistance);
             //Debug.DrawLine(ray.origin, point, Color.red);
             controller.LookAt(point);
+            crosshairs.transform.position = point;
+            crosshairs.DetectTargets(ray);
+            if ((new Vector2(point.x, point.z) - new Vector2(transform.position.x, transform.position.z)).sqrMagnitude > 1)
+            {
+                gunController.Aim(point);
+            }
         }
 
         // Weapon Input
         if(Input.GetButton("Fire1"))
         {
-            gunController.Shoot();
+            gunController.OnTriggerHold();
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            gunController.OnTriggerRelease();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            gunController.Reload();
         }
 
         // Jump Input

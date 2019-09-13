@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 511076116873009939}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3532973949557689174}
   - component: {fileID: 9164431314706822067}
   - component: {fileID: 8912337102210314244}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet_45mm
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d97e702549bfc6941b51356704b840d5, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: d97e702549bfc6941b51356704b840d5, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -200,6 +204,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1c00dfadbc2d2be4e9332e34cb4ca324, type: 2}
+    - target: {fileID: 100002, guid: d97e702549bfc6941b51356704b840d5, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: d97e702549bfc6941b51356704b840d5, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d97e702549bfc6941b51356704b840d5, type: 3}
 --- !u!4 &5205515660922387742 stripped
