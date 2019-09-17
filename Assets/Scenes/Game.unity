@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6760,7 +6760,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 0.5218706, y: 15.086617, z: -5.2841773}
+  m_LocalPosition: {x: 0.52198315, y: 15.086617, z: -5.2841773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1083540768}
@@ -7828,7 +7828,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1221420187}
   m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
-  m_LocalPosition: {x: 0.5218706, y: 15.086617, z: -5.2841773}
+  m_LocalPosition: {x: 0.52198315, y: 15.086617, z: -5.2841773}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 196822924}
@@ -11151,6 +11151,7 @@ GameObject:
   - component: {fileID: 1974488376}
   - component: {fileID: 1974488375}
   - component: {fileID: 1974488374}
+  - component: {fileID: 1974488377}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -11200,6 +11201,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1974488377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974488373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb840c77c264eb5468c6bf6d539e166e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundGroups:
+  - groupID: Impact
+    group:
+    - {fileID: 8300000, guid: aedb0e4a360d1e1448de840ef7701feb, type: 3}
+    - {fileID: 8300000, guid: 230a3f2735dfeec4b94fd9148c3859c1, type: 3}
+    - {fileID: 8300000, guid: 97e56bf9c98a6fc4f8f946ec9a773259, type: 3}
+  - groupID: Enemy Death
+    group:
+    - {fileID: 8300000, guid: f6dc36b5e56c6514e8a720c92a9a4c59, type: 3}
+    - {fileID: 8300000, guid: 13a68e99f2816bb43a8a42f2083b2548, type: 3}
+  - groupID: Enemy Attack
+    group:
+    - {fileID: 8300000, guid: d5b3194070fb79b4baa8c9211affadd5, type: 3}
+  - groupID: Level Completed
+    group:
+    - {fileID: 8300000, guid: 7fcf48dca9411ef4794734635b176c86, type: 3}
+  - groupID: Player Death
+    group:
+    - {fileID: 8300000, guid: 0e084393d2d625e48b58b4fb84fabc33, type: 3}
 --- !u!1 &1989877790
 GameObject:
   m_ObjectHideFlags: 0
