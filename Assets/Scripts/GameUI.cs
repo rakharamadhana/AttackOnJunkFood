@@ -29,7 +29,7 @@ public class GameUI : MonoBehaviour
 
     void onNewWave(int waveNumber)
     {
-        Debug.Log(waveNumber);
+        //Debug.Log(waveNumber);
         string[] numbers = { "One", "Two", "Three", "Four", "Five" };
         newWaveTitle.text = "- Wave " + numbers[waveNumber - 1] + " -";
         string enemyCountString = ((spawner.waves[waveNumber-1].infinite)?"Infinite":spawner.waves[waveNumber-1].enemyCount +"");
