@@ -6,8 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(GunController))]
 public class Player : LivingEntity
 {
+    public bool testFloatingJoystick = true;
     public float moveSpeed = 5;
+    public float lookSpeed = 50;
     public Crosshairs crosshairs;
+    public FloatingJoystick movementJoystick;
+    public FloatingJoystick rotationJoystick;
+    public FixedButton fixedButton;
 
     Animator anim;
 
@@ -24,6 +29,8 @@ public class Player : LivingEntity
 
     PlayerController controller;
     GunController gunController;
+
+    Quaternion targetRotation;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -43,6 +50,14 @@ public class Player : LivingEntity
         isGrounded = true;
 
         FindObjectOfType<Spawner>().OnNewWave += OnNewWave;
+
+        if(testFloatingJoystick)
+        {
+            Cursor.visible = true;
+            movementJoystick.gameObject.SetActive(true);
+            rotationJoystick.gameObject.SetActive(true);
+            crosshairs.gameObject.SetActive(false);
+        }
     }
 
     void OnNewWave(int waveNumber)
@@ -54,67 +69,98 @@ public class Player : LivingEntity
     // Update is called once per frame
     void Update()
     {
+        float m_horizontal;
+        float m_vertical;
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float r_horizontal;
+        float r_vertical;
 
-        // Animate Movement with Mouse Aim
-        if (camT != null)
+        // Floating Joystick Input
+        if (testFloatingJoystick)
         {
-            camForward = Vector3.Scale(camT.up, new Vector3(1, 0, 1)).normalized;
-            move = vertical * camForward + horizontal * camT.right;
 
+            // Joystick Movement Input
+            m_horizontal = movementJoystick.Horizontal;
+            m_vertical = movementJoystick.Vertical;
+
+            //m_horizontal = Input.GetAxisRaw("Horizontal");
+            //m_vertical = Input.GetAxisRaw("Vertical");
+
+            r_horizontal = rotationJoystick.Horizontal;
+            r_vertical = rotationJoystick.Vertical;
+
+            // Animate Joystick Look
+            if (camT != null)
+            {
+                camForward = Vector3.Scale(camT.up, new Vector3(1, 0, 1)).normalized;
+                move = m_vertical * camForward + m_horizontal * camT.right;
+
+            }
+            else
+            {
+                move = m_vertical * Vector3.forward + m_horizontal * Vector3.right;
+            }
+
+            if (move.magnitude > 1)
+            {
+                move.Normalize();
+            }
+            Move(move);
+
+            // Joystick Look Input
+            Vector3 rotationInput = new Vector3(r_horizontal, 0, r_vertical);
+            if (rotationInput != Vector3.zero)
+            {
+                targetRotation = Quaternion.LookRotation(rotationInput);
+            }
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, lookSpeed);
         }
         else
         {
-            move = vertical * Vector3.forward + horizontal * Vector3.right;
-        }
+            m_horizontal = Input.GetAxisRaw("Horizontal");
+            m_vertical = Input.GetAxisRaw("Vertical");
 
-        if(move.magnitude > 1)
-        {
-            move.Normalize();
-        }
-        Move(move);
-
-        // Movement Input
-        Vector3 moveInput = new Vector3(horizontal, 0, vertical);
-        Vector3 moveVelocity = moveInput.normalized * moveSpeed;
-        controller.Move(moveVelocity);
-
-        // Look Input
-        Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, Vector3.up * gunController.GunHeight);
-        float rayDistance;
-
-        if(groundPlane.Raycast(ray, out rayDistance))
-        {
-            Vector3 point = ray.GetPoint(rayDistance);
-            //Debug.DrawLine(ray.origin, point, Color.red);
-            controller.LookAt(point);
-            crosshairs.transform.position = point;
-            crosshairs.DetectTargets(ray);
-            if ((new Vector2(point.x, point.z) - new Vector2(transform.position.x, transform.position.z)).sqrMagnitude > 1)
+            // Animate Mouse Look
+            if (camT != null)
             {
-                gunController.Aim(point);
+                camForward = Vector3.Scale(camT.up, new Vector3(1, 0, 1)).normalized;
+                move = m_vertical * camForward + m_horizontal * camT.right;
+            }
+            else
+            {
+                move = m_vertical * Vector3.forward + m_horizontal * Vector3.right;
+            }
+
+            if (move.magnitude > 1)
+            {
+                move.Normalize();
+            }
+            Move(move);
+
+            // Look Input
+            Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
+            Plane groundPlane = new Plane(Vector3.up, Vector3.up * gunController.GunHeight);
+            float rayDistance;
+
+            if (groundPlane.Raycast(ray, out rayDistance))
+            {
+                Vector3 point = ray.GetPoint(rayDistance);
+                //Debug.DrawLine(ray.origin, point, Color.red);
+                controller.LookAt(point);
+                crosshairs.transform.position = point;
+                crosshairs.DetectTargets(ray);
+                if ((new Vector2(point.x, point.z) - new Vector2(transform.position.x, transform.position.z)).sqrMagnitude > 1)
+                {
+                    gunController.Aim(point);
+                }
             }
         }
 
-        // Weapon Input
-        if(Input.GetButton("Fire1"))
-        {
-            gunController.OnTriggerHold();
-        }
-
-        if (Input.GetButtonUp("Fire1"))
-        {
-            gunController.OnTriggerRelease();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            gunController.Reload();
-        }
-
+        // Movement Input
+        Vector3 moveInput = new Vector3(m_horizontal, 0, m_vertical);
+        Vector3 moveVelocity = moveInput.normalized * moveSpeed;
+        controller.Move(moveVelocity);
+        
         // Jump Input
         if (Input.GetButtonDown("Jump"))
         {
@@ -127,6 +173,26 @@ public class Player : LivingEntity
             {
                 isGrounded = true;
             }
+        }
+
+        // Fire
+        if (fixedButton.Pressed)
+        {
+            gunController.OnTriggerHold();
+        }
+        else
+        {
+            gunController.OnTriggerRelease();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            gunController.Reload();
+        }
+
+        if (transform.position.y < -10)
+        {
+            TakeDamage(health);
         }
     }
 

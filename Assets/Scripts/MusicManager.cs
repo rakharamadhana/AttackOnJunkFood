@@ -1,22 +1,64 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
 {
     public AudioClip mainTheme;
     public AudioClip menuTheme;
 
+    string sceneName;
+
     private void Start()
     {
-        AudioManager.instance.PlayMusic(menuTheme, 2);
+
     }
-    // Update is called once per frame
-    void Update()
+
+    void OnEnable()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        //Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }
+
+    void OnDisable()
+    {
+        //Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled.
+        //Remember to always have an unsubscription for every delegate you
+        //subscribe to!
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        //Debug.Log("Level Loaded");
+        //Debug.Log(scene.name);
+        //Debug.Log(mode);
+        string newSceneName = scene.name;
+        if (newSceneName != sceneName)
         {
-            AudioManager.instance.PlayMusic(mainTheme, 3);
+            sceneName = newSceneName;
+            Invoke("PlayMusic", .2f);
+        }
+    }
+
+    void PlayMusic()
+    {
+        AudioClip clipToPlay = null;
+
+        if(sceneName == "Menu")
+        {
+            clipToPlay = menuTheme;
+
+        }else if(sceneName == "Game")
+        {
+            clipToPlay = mainTheme;
+        }
+
+        if(clipToPlay !=null)
+        {
+            AudioManager.instance.PlayMusic(clipToPlay, 2);
+            Invoke("PlayMusic", clipToPlay.length);
         }
     }
 }
