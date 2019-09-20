@@ -17,8 +17,8 @@ public class Menu : MonoBehaviour
 
     void Start()
     {
-        activeScreenResIndex = PlayerPrefs.GetInt("screen res index");
-        bool isFullscreen = (PlayerPrefs.GetInt("fullscreen") == 1)?true:false;
+        //activeScreenResIndex = PlayerPrefs.GetInt("screen res index");
+        //bool isFullscreen = (PlayerPrefs.GetInt("fullscreen") == 1)?true:false;
 
         volumeSliders[0].value = AudioManager.instance.masterVolumePercent;
         volumeSliders[1].value = AudioManager.instance.musicVolumePercent;
@@ -26,10 +26,10 @@ public class Menu : MonoBehaviour
 
         for(int i =0;i<resolutionToggles.Length;i++)
         {
-            resolutionToggles[i].isOn = i == activeScreenResIndex;
+            //resolutionToggles[i].isOn = i == activeScreenResIndex;
         }
 
-        fullscreenToggles.isOn = isFullscreen;
+        //fullscreenToggles.isOn = isFullscreen;
     }
 
     public void Play()
@@ -65,6 +65,7 @@ public class Menu : MonoBehaviour
         }
     }
 
+    /**
     public void SetFullscreen(bool isFullscreen)
     {
         for(int i =0;i<resolutionToggles.Length; i++)
@@ -86,6 +87,7 @@ public class Menu : MonoBehaviour
         PlayerPrefs.SetInt("fullscreen", ((isFullscreen) ? 1 : 0));
         PlayerPrefs.Save();
     }
+    **/
 
     public void SetMasterVolume(float value)
     {

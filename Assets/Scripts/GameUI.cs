@@ -63,6 +63,7 @@ public class GameUI : MonoBehaviour
         Cursor.visible = true;
         StartCoroutine(Fade(Color.clear, new Color(0,0,0,.95f), 1));
         gameOverScoreUI.text = scoreUI.text;
+        comboUI.gameObject.SetActive(false);
         scoreUI.gameObject.SetActive(false);
         healthBar.transform.parent.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
