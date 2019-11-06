@@ -92,6 +92,9 @@ MonoBehaviour:
   - groupID: Player Death
     group:
     - {fileID: 8300000, guid: 0e084393d2d625e48b58b4fb84fabc33, type: 3}
+  - groupID: Enemy Spawn
+    group:
+    - {fileID: 8300000, guid: d8cbd676b22029348843295d859a14d1, type: 3}
 --- !u!1 &4163841167796564963
 GameObject:
   m_ObjectHideFlags: 0

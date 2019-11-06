@@ -9,6 +9,8 @@ public class Spawner : MonoBehaviour
     public Wave[] waves;
     public Enemy enemy;
 
+    public ParticleSystem spawnEffect;
+
     LivingEntity playerEntity;
     Transform playerT;
 
@@ -82,8 +84,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        float spawnDelay = 1;
-        float tileFlashSpeed = 4;
+        float spawnDelay = .8f;
 
         Transform spawnTile = map.GetRandomOpenTile();
         if(isCamping)
@@ -97,11 +98,17 @@ public class Spawner : MonoBehaviour
 
         while (spawnTimer < spawnDelay)
         {
-            tileMat.color = Color.Lerp(initialColour, flashColour, Mathf.PingPong(spawnTimer*tileFlashSpeed,1));
+            ParticleSystem spawnFx = spawnEffect.GetComponent<ParticleSystem>();
+            ParticleSystem.MainModule spawnFxMain = spawnFx.main;
+
+            spawnFxMain.startColor = new Color(currentWave.skinColour.r, currentWave.skinColour.g, currentWave.skinColour.b, 1);
+            Destroy(Instantiate(spawnEffect.gameObject, spawnTile.transform), .5f);
 
             spawnTimer += Time.deltaTime;
             yield return null;
         }
+
+        AudioManager.instance.PlaySound("Enemy Spawn", spawnTile.position);
 
         Enemy spawnedEnemy = Instantiate(enemy, spawnTile.position + Vector3.up, Quaternion.identity) as Enemy;
         spawnedEnemy.OnDeath += OnEnemyDeath;

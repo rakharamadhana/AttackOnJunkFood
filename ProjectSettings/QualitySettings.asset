@@ -183,12 +183,13 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms:
     - Android
+    - Standalone
   - serializedVersion: 2
     name: Ultra
     pixelLightCount: 4
     shadows: 2
     shadowResolution: 2
-    shadowProjection: 0
+    shadowProjection: 1
     shadowCascades: 4
     shadowDistance: 150
     shadowNearPlaneOffset: 3
@@ -219,13 +220,14 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms:
     - Android
+    - Standalone
   m_PerPlatformDefaultQuality:
     Android: 2
     BJM: 5
     Lumin: 5
     Nintendo Switch: 5
     PS4: 5
-    Standalone: 5
+    Standalone: 3
     WebGL: 3
     Windows Store Apps: 5
     XboxOne: 5

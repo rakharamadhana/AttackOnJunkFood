@@ -176,7 +176,7 @@ public class Player : LivingEntity
         }
 
         // Fire
-        if (fixedButton.Pressed)
+        if (fixedButton.Pressed || Input.GetKey(KeyCode.Mouse0))
         {
             gunController.OnTriggerHold();
         }
