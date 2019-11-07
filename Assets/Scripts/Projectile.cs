@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
             OnHitObject(initialCollisions[0], transform.position);
         }
 
-        GetComponent<TrailRenderer>().material.SetColor("_TintColor",trailColour);
+        //GetComponent<TrailRenderer>().material.SetColor("_TintColor",trailColour);
     }
 
     public void SetSpeed(float newSpeed)

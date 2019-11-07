@@ -22,9 +22,9 @@ public class Gun : MonoBehaviour
     public float recoilRotationSettleTime = .1f;
 
     [Header("Effects")]
-    public Transform shell;
-    public Transform shellEjection;
-    public ParticleSystem muzzleFlash;
+    //public Transform shell;
+    //public Transform shellEjection;
+    //public ParticleSystem muzzleFlash;
     public Light muzzleFlashLight;
     public AudioClip shootAudio;
     public AudioClip reloadAudio;
@@ -43,9 +43,9 @@ public class Gun : MonoBehaviour
 
     private void Start()
     {
-        muzzleFlash = GetComponentInChildren<ParticleSystem>();
-        muzzleFlashLight = GetComponentInChildren<Light>();
-        muzzleFlashLight.gameObject.SetActive(false);
+        //muzzleFlash = GetComponentInChildren<ParticleSystem>();
+        //muzzleFlashLight = GetComponentInChildren<Light>();
+        //muzzleFlashLight.gameObject.SetActive(false);
         shotsRemainingInBurst = burstCount;
         projectilesRemainingInMag = projectilesPerMag;
     }
@@ -96,7 +96,7 @@ public class Gun : MonoBehaviour
                 newProjectile.SetSpeed(muzzleVelocity);
             }
 
-            Instantiate(shell, shellEjection.position, shellEjection.rotation);
+            //Instantiate(shell, shellEjection.position, shellEjection.rotation);
             StartCoroutine(MuzzleFlash());
             //transform.localPosition -= Vector3.forward * Random.Range(kickMinMax.x,kickMinMax.y);
             //recoilAngle += Random.Range(recoilAngleMinMax.x,recoilAngleMinMax.y);
@@ -123,7 +123,7 @@ public class Gun : MonoBehaviour
         float reloadSpeed = 1f / reloadTime;
         float percent = 0;
         Vector3 initialRotation = transform.localEulerAngles;
-        float maxReloadAngle = 30;
+        float maxReloadAngle = 0;
 
         while (percent < 1)
         {
@@ -142,7 +142,7 @@ public class Gun : MonoBehaviour
 
     IEnumerator MuzzleFlash()
     {
-        muzzleFlash.Play();
+        //muzzleFlash.Play();
         muzzleFlashLight.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.03f);
         muzzleFlashLight.gameObject.SetActive(false);

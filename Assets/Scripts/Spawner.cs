@@ -7,7 +7,6 @@ public class Spawner : MonoBehaviour
     public bool devMode;
 
     public Wave[] waves;
-    public Enemy enemy;
 
     public ParticleSystem spawnEffect;
 
@@ -110,7 +109,7 @@ public class Spawner : MonoBehaviour
 
         AudioManager.instance.PlaySound("Enemy Spawn", spawnTile.position);
 
-        Enemy spawnedEnemy = Instantiate(enemy, spawnTile.position + Vector3.up, Quaternion.identity) as Enemy;
+        Enemy spawnedEnemy = Instantiate(currentWave.enemy[Random.Range(0, currentWave.enemy.Length)], spawnTile.position + Vector3.up, Quaternion.identity) as Enemy;
         spawnedEnemy.OnDeath += OnEnemyDeath;
         spawnedEnemy.SetCharacteristics(currentWave.moveSpeed, currentWave.hitsToKillPlayer, currentWave.enemyHealth, currentWave.skinColour);
     }
@@ -168,6 +167,8 @@ public class Spawner : MonoBehaviour
         public int hitsToKillPlayer;
         public float enemyHealth;
         public Color skinColour;
+
+        public Enemy[] enemy;
     }
 
 }
