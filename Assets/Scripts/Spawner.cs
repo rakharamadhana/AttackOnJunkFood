@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     public Wave[] waves;
 
     public ParticleSystem spawnEffect;
+    public GameObject monsterInfoUI;
 
     LivingEntity playerEntity;
     Transform playerT;
@@ -50,6 +51,7 @@ public class Spawner : MonoBehaviour
         //Debug.Log("Camping: "+isCamping);
         if(!isDisabled)
         {
+
             if (Time.time > nextCampCheckTime)
             {
                 nextCampCheckTime = Time.time + timeBetweenCampingChecks;
@@ -58,7 +60,7 @@ public class Spawner : MonoBehaviour
                 campPositionOld = playerT.position;
             }
 
-            if ((enemiesRemainingToSpawn > 0 || currentWave.infinite) && Time.time > nextSpawnTime)
+            if ((enemiesRemainingToSpawn > 0 || currentWave.infinite) && Time.time > nextSpawnTime && monsterInfoUI.gameObject.activeSelf != true)
             {
                 enemiesRemainingToSpawn--;
                 nextSpawnTime = Time.time + currentWave.timeBetweenSpawn;

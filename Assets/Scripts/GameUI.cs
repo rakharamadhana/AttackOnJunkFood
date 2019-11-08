@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
+    [Header("General UI")]
     public Image fadePlane;
     public GameObject gameOverUI;
-
+    
     public RectTransform newWaveBanner;
     public Text newWaveTitle;
     public Text newWaveEnemyCount;
@@ -17,8 +18,16 @@ public class GameUI : MonoBehaviour
     public Text gameOverScoreUI;
     public RectTransform healthBar;
 
+    [Header("Monster Info UI")]
+    public GameObject monsterInfoUI;
+    public Text monsterName;
+    public Image monsterImage;
+    public Text monsterDescription;
+    public Monster[] monstersInfo;
+
     Spawner spawner;
     Player player;
+    Monster currentMonster;
 
     // Start is called before the first frame update
     void Start()
@@ -54,8 +63,18 @@ public class GameUI : MonoBehaviour
         string enemyCountString = ((spawner.waves[waveNumber-1].infinite)?"Infinite":spawner.waves[waveNumber-1].enemyCount +"");
         newWaveEnemyCount.text = "Enemies: " + enemyCountString;
 
+        updateMonsterInfo(waveNumber - 1);
+        monsterInfoUI.SetActive(true);
         StopCoroutine("AnimateNewWaveBanner");
         StartCoroutine("AnimateNewWaveBanner");
+    }
+
+    void updateMonsterInfo(int currentWave)
+    {
+        currentMonster = monstersInfo[currentWave];
+        monsterName.text = currentMonster.monsterName;
+        monsterImage.gameObject.GetComponent<Image>().sprite = currentMonster.monsterImage;
+        monsterDescription.gameObject.GetComponent<Text>().text = currentMonster.monsterDescription;
     }
 
     void OnGameOver()
@@ -120,5 +139,19 @@ public class GameUI : MonoBehaviour
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    public void MonsterInfoContinue()
+    {
+        monsterInfoUI.gameObject.SetActive(false);
+    }
+
+    [System.Serializable]
+    public class Monster
+    {
+        public string monsterName;
+        public Sprite monsterImage;
+        [TextArea]
+        public string monsterDescription;
     }
 }
