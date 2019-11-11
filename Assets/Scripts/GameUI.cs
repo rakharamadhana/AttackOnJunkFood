@@ -9,7 +9,8 @@ public class GameUI : MonoBehaviour
     [Header("General UI")]
     public Image fadePlane;
     public GameObject gameOverUI;
-    
+    public GameObject pauseMenuUI;
+
     public RectTransform newWaveBanner;
     public Text newWaveTitle;
     public Text newWaveEnemyCount;
@@ -33,6 +34,8 @@ public class GameUI : MonoBehaviour
     Spawner spawner;
     Player player;
     Monster currentMonster;
+
+    public static bool gameIsPaused = false;
 
     // Start is called before the first frame update
     void Start()
@@ -65,21 +68,46 @@ public class GameUI : MonoBehaviour
         }
         healthBar.localScale = new Vector3(healthPercent, 1, 1);
         staminaBar.localScale = new Vector3(staminaPercent, 1, 1);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameIsPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                AudioManager.instance.PlaySound("Pause", player.transform.position);
+                PauseGame();
+            }
+        }
+    }
+
+    public void ResumeGame()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+    }
+
+    void PauseGame()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        gameIsPaused = true;
     }
 
     void onNewWave(int waveNumber)
     {
         //Debug.Log(waveNumber);
         string[] numbers = { "One", "Two", "Three", "Four", "Five" };
-        newWaveTitle.text = "- Wave " + numbers[waveNumber - 1] + " -";
+        newWaveTitle.text = "- Level " + numbers[waveNumber - 1] + " -";
         string enemyCountString = ((spawner.waves[waveNumber-1].infinite)?"Infinite":spawner.waves[waveNumber-1].enemyCount +"");
         newWaveEnemyCount.text = "Enemies: " + enemyCountString;
 
         updateMonsterInfo(waveNumber - 1);
         monsterInfoUI.SetActive(true);
         Cursor.visible = true;
-        StopCoroutine("AnimateNewWaveBanner");
-        StartCoroutine("AnimateNewWaveBanner");
     }
 
     void updateMonsterInfo(int currentWave)
@@ -99,7 +127,6 @@ public class GameUI : MonoBehaviour
         leftJoystick.gameObject.SetActive(false);
         rightJoystick.gameObject.SetActive(false);
         scoreUI.gameObject.SetActive(false);
-        healthBar.transform.parent.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
     }
 
@@ -148,11 +175,20 @@ public class GameUI : MonoBehaviour
     // UI Input
     public void StartNewGame()
     {
-        SceneManager.LoadScene("Game");
+        if (Time.timeScale == 0f)
+        {
+            Time.timeScale = 1f;
+        }
+        SceneManager.LoadScene("LoadingScreen");
     }
 
     public void ReturnToMainMenu()
     {
+        if (Time.timeScale == 0f)
+        {
+            Time.timeScale = 1f;
+        }
+
         SceneManager.LoadScene("Menu");
     }
 
@@ -160,6 +196,8 @@ public class GameUI : MonoBehaviour
     {
         Cursor.visible = false;
         monsterInfoUI.gameObject.SetActive(false);
+        StopCoroutine("AnimateNewWaveBanner");
+        StartCoroutine("AnimateNewWaveBanner");
     }
 
     [System.Serializable]

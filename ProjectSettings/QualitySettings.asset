@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 2
+  m_CurrentQuality: 1
   m_QualitySettings:
   - serializedVersion: 2
     name: Very Low
@@ -110,7 +110,8 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Android
   - serializedVersion: 2
     name: High
     pixelLightCount: 2
@@ -222,7 +223,7 @@ QualitySettings:
     - Android
     - Standalone
   m_PerPlatformDefaultQuality:
-    Android: 2
+    Android: 1
     BJM: 5
     Lumin: 5
     Nintendo Switch: 5

@@ -85,7 +85,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        float spawnDelay = .8f;
+        float spawnDelay = 2f;
 
         Transform spawnTile = map.GetRandomOpenTile();
         if(isCamping)

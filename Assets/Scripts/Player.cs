@@ -185,7 +185,7 @@ public class Player : LivingEntity
         // Fire
         if (monsterInfoUI.gameObject.activeSelf != true)
         {
-            if (fireButton.Pressed )
+            if (fireButton.Pressed || Input.GetKey(KeyCode.Mouse0))
             {
                 gunController.OnTriggerHold();
             }
@@ -212,7 +212,7 @@ public class Player : LivingEntity
         controller.Move(moveVelocity);
 
         // Dashing
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Dash();
         }
@@ -254,7 +254,7 @@ public class Player : LivingEntity
     {
         yield return new WaitForSeconds(dashRechargeTime);
         dashLimit = maxDashLimit;
-        Debug.Log("Dash: " + dashLimit + "/" + maxDashLimit);
+        //Debug.Log("Dash: " + dashLimit + "/" + maxDashLimit);
         
     }
 
