@@ -20,9 +20,9 @@ public class Menu : MonoBehaviour
         //activeScreenResIndex = PlayerPrefs.GetInt("screen res index");
         //bool isFullscreen = (PlayerPrefs.GetInt("fullscreen") == 1)?true:false;
 
-        volumeSliders[0].value = AudioManager.instance.masterVolumePercent;
-        volumeSliders[1].value = AudioManager.instance.musicVolumePercent;
-        volumeSliders[2].value = AudioManager.instance.sfxVolumePercent;
+        //volumeSliders[0].value = AudioManager.instance.masterVolumePercent;
+        //volumeSliders[1].value = AudioManager.instance.musicVolumePercent;
+        //volumeSliders[2].value = AudioManager.instance.sfxVolumePercent;
 
         for(int i =0;i<resolutionToggles.Length;i++)
         {

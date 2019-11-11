@@ -16,7 +16,7 @@ public class Enemy : LivingEntity
     Transform target;
     LivingEntity targetEntity;
     Material skinMaterial;
-
+    Player playerEntity;
     Color originalColor;
 
     float attackDistanceThreshold = .5f;
@@ -35,6 +35,7 @@ public class Enemy : LivingEntity
 
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
+            playerEntity = FindObjectOfType<Player>();
             hasTarget = true;
             target = GameObject.FindGameObjectWithTag("Player").transform;
             targetEntity = target.GetComponent<LivingEntity>();
@@ -48,7 +49,6 @@ public class Enemy : LivingEntity
     protected override void Start()
     {
         base.Start();
-
         if (hasTarget)
         {
             currentState = State.Chasing;
@@ -110,8 +110,11 @@ public class Enemy : LivingEntity
                 if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionRadius, 2))
                 {
                     nextAttackTime = Time.time + timeBetweenAttacks;
-                    AudioManager.instance.PlaySound("Enemy Attack", transform.position);
-                    StartCoroutine(Attack());
+                    if (!playerEntity.isDashing)
+                    {
+                        AudioManager.instance.PlaySound("Enemy Attack", transform.position);
+                        StartCoroutine(Attack());
+                    }
                 }
             }
         }

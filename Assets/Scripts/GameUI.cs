@@ -15,8 +15,13 @@ public class GameUI : MonoBehaviour
     public Text newWaveEnemyCount;
     public Text scoreUI;
     public Text comboUI;
+    public Text enemyCountUI;
     public Text gameOverScoreUI;
+    public GameObject dashButton;
+    public GameObject leftJoystick;
+    public GameObject rightJoystick;
     public RectTransform healthBar;
+    public RectTransform staminaBar;
 
     [Header("Monster Info UI")]
     public GameObject monsterInfoUI;
@@ -44,15 +49,22 @@ public class GameUI : MonoBehaviour
 
     private void Update()
     {
+        
         scoreUI.text = ScoreKeeper.score.ToString("D6");
         comboUI.text = ScoreKeeper.streakCount.ToString("D2");
 
+        int enemyCount = spawner.enemiesRemainingAlive;
+        enemyCountUI.text = enemyCount.ToString("D2");
+
         float healthPercent = 0;
-        if(player != null)
+        float staminaPercent = 0;
+        if (player != null)
         {
             healthPercent = player.health / player.startingHealth;
+            staminaPercent = player.dashLimit / player.maxDashLimit;
         }
         healthBar.localScale = new Vector3(healthPercent, 1, 1);
+        staminaBar.localScale = new Vector3(staminaPercent, 1, 1);
     }
 
     void onNewWave(int waveNumber)
@@ -65,6 +77,7 @@ public class GameUI : MonoBehaviour
 
         updateMonsterInfo(waveNumber - 1);
         monsterInfoUI.SetActive(true);
+        Cursor.visible = true;
         StopCoroutine("AnimateNewWaveBanner");
         StartCoroutine("AnimateNewWaveBanner");
     }
@@ -82,7 +95,9 @@ public class GameUI : MonoBehaviour
         Cursor.visible = true;
         StartCoroutine(Fade(Color.clear, new Color(0,0,0,.95f), 1));
         gameOverScoreUI.text = scoreUI.text;
-        comboUI.gameObject.SetActive(false);
+        dashButton.gameObject.SetActive(false);
+        leftJoystick.gameObject.SetActive(false);
+        rightJoystick.gameObject.SetActive(false);
         scoreUI.gameObject.SetActive(false);
         healthBar.transform.parent.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
@@ -143,6 +158,7 @@ public class GameUI : MonoBehaviour
 
     public void MonsterInfoContinue()
     {
+        Cursor.visible = false;
         monsterInfoUI.gameObject.SetActive(false);
     }
 

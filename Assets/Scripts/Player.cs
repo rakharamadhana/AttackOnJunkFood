@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(GunController))]
@@ -8,11 +9,18 @@ public class Player : LivingEntity
 {
     public bool testFloatingJoystick = true;
     public float moveSpeed = 5;
+    public float maxDashTime = 1.0f;
+    public float dashSpeed = 1.0f;
+    public float dashStoppingSpeed = 0.1f;
+    public float maxDashLimit = 3.0f;
+    public float dashLimit = 3.0f;
+    public float dashRechargeTime = 3.0f;
     public float lookSpeed = 50;
     public Crosshairs crosshairs;
-    public FloatingJoystick movementJoystick;
-    public FloatingJoystick rotationJoystick;
-    public FixedButton fixedButton;
+    public FixedJoystick movementJoystick;
+    public FixedJoystick rotationJoystick;
+    public FixedButton fireButton;
+    public GameObject monsterInfoUI;
 
     Animator anim;
 
@@ -24,11 +32,14 @@ public class Player : LivingEntity
 
     float forwardAmount;
     float turnAmount;
+    private float currentDashTime;
 
     bool isGrounded;
+    public bool isDashing;
 
     PlayerController controller;
     GunController gunController;
+    Vector3 moveDir;
 
     Quaternion targetRotation;
 
@@ -36,6 +47,7 @@ public class Player : LivingEntity
     protected override void Start()
     {
         base.Start();
+        currentDashTime = maxDashTime;
     }
 
     private void Awake()
@@ -155,11 +167,6 @@ public class Player : LivingEntity
                 }
             }
         }
-
-        // Movement Input
-        Vector3 moveInput = new Vector3(m_horizontal, 0, m_vertical);
-        Vector3 moveVelocity = moveInput.normalized * moveSpeed;
-        controller.Move(moveVelocity);
         
         // Jump Input
         if (Input.GetButtonDown("Jump"))
@@ -176,24 +183,79 @@ public class Player : LivingEntity
         }
 
         // Fire
-        if (fixedButton.Pressed || Input.GetKey(KeyCode.Mouse0))
+        if (monsterInfoUI.gameObject.activeSelf != true)
         {
-            gunController.OnTriggerHold();
+            if (fireButton.Pressed )
+            {
+                gunController.OnTriggerHold();
+            }
+            else
+            {
+                gunController.OnTriggerRelease();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                gunController.Reload();
+            }
+
+            if (transform.position.y < -10)
+            {
+                TakeDamage(health);
+            }
+        }
+
+        // Movement Input
+        Vector3 moveInput = new Vector3(m_horizontal, 0, m_vertical);
+        Vector3 moveVelocity = moveInput.normalized * moveSpeed;
+        moveDir = moveVelocity;
+        controller.Move(moveVelocity);
+
+        // Dashing
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Dash();
+        }
+        if (currentDashTime < maxDashTime)
+        {
+            isDashing = true;
+            controller.Move(moveDir * dashSpeed);
+            currentDashTime += dashStoppingSpeed;
         }
         else
         {
-            gunController.OnTriggerRelease();
+            isDashing = false;
+            //Debug.Log("Nothing");
+            GetComponent<TrailRenderer>().enabled = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (dashLimit == 0)
         {
-            gunController.Reload();
+            StartCoroutine("resetDashLimit");
+            //Debug.Log(dashLimit);
         }
+        else if (dashLimit == maxDashLimit)
+        {
+            StopCoroutine("resetDashLimit");
+        }
+    }
+    public void Dash()
+    {
+        if (dashLimit > 0)
+        {
+            AudioManager.instance.PlaySound("Dash", transform.position);
+            currentDashTime = 0.0f;
+            GetComponent<TrailRenderer>().enabled = true;
+            dashLimit--;   
+        }
+    }
 
-        if (transform.position.y < -10)
-        {
-            TakeDamage(health);
-        }
+    IEnumerator resetDashLimit()
+    {
+        yield return new WaitForSeconds(dashRechargeTime);
+        dashLimit = maxDashLimit;
+        Debug.Log("Dash: " + dashLimit + "/" + maxDashLimit);
+        
     }
 
     public override void Die()
