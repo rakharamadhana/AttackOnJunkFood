@@ -27,7 +27,7 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
-        FindObjectOfType<Spawner>().OnNewWave += OnNewWave;
+        FindObjectOfType<EnemySpawner>().OnNewWave += OnNewWave;
     }
 
     void OnNewWave(int waveNumber)

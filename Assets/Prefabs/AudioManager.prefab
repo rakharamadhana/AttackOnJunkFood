@@ -101,6 +101,9 @@ MonoBehaviour:
   - groupID: Pause
     group:
     - {fileID: 8300000, guid: 06e5960bd11294639a78a6058b09064e, type: 3}
+  - groupID: Item Get
+    group:
+    - {fileID: 8300000, guid: e343a78c9ac474ec8bd4dfb61a8f6abe, type: 3}
 --- !u!1 &4163841167796564963
 GameObject:
   m_ObjectHideFlags: 0

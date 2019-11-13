@@ -8,11 +8,12 @@ public class Menu : MonoBehaviour
 {
     public GameObject mainMenuHolder;
     public GameObject optionsMenuHolder;
+    public GameObject tutorialHolder;
 
     public Slider[] volumeSliders;
-    public Toggle[] resolutionToggles;
-    public Toggle fullscreenToggles;
-    public int[] screenWidths;
+    //public Toggle[] resolutionToggles;
+    //public Toggle fullscreenToggles;
+
     int activeScreenResIndex;
 
     void Start()
@@ -20,14 +21,14 @@ public class Menu : MonoBehaviour
         //activeScreenResIndex = PlayerPrefs.GetInt("screen res index");
         //bool isFullscreen = (PlayerPrefs.GetInt("fullscreen") == 1)?true:false;
 
-        //volumeSliders[0].value = AudioManager.instance.masterVolumePercent;
-        //volumeSliders[1].value = AudioManager.instance.musicVolumePercent;
-        //volumeSliders[2].value = AudioManager.instance.sfxVolumePercent;
+        volumeSliders[0].value = AudioManager.instance.masterVolumePercent;
+        volumeSliders[1].value = AudioManager.instance.musicVolumePercent;
+        volumeSliders[2].value = AudioManager.instance.sfxVolumePercent;
 
-        for(int i =0;i<resolutionToggles.Length;i++)
-        {
+        //for(int i =0;i<resolutionToggles.Length;i++)
+        //{
             //resolutionToggles[i].isOn = i == activeScreenResIndex;
-        }
+        //}
 
         //fullscreenToggles.isOn = isFullscreen;
     }
@@ -52,15 +53,23 @@ public class Menu : MonoBehaviour
     {
         mainMenuHolder.SetActive(true);
         optionsMenuHolder.SetActive(false);
+        tutorialHolder.SetActive(false);
+        tutorialHolder.GetComponentInChildren<SwipeController>().scrollPosition = 0f;
+    }
+
+    public void Tutorial()
+    {
+        mainMenuHolder.SetActive(false);
+        tutorialHolder.SetActive(true);
     }
 
     public void SetScreenResolution(int i)
     {
-        if(resolutionToggles[i].isOn)
+        //if(resolutionToggles[i].isOn)
         {
             activeScreenResIndex = i;
-            float aspectRatio = 16 / 9f;
-            Screen.SetResolution(screenWidths[i], (int)(screenWidths[i] / aspectRatio), false);
+            //float aspectRatio = 16 / 9f;
+            //Screen.SetResolution(screenWidths[i], (int)(screenWidths[i] / aspectRatio), false);
             PlayerPrefs.SetInt("screen res index", activeScreenResIndex);
         }
     }

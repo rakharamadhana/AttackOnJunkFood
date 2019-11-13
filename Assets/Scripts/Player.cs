@@ -61,7 +61,7 @@ public class Player : LivingEntity
 
         isGrounded = true;
 
-        FindObjectOfType<Spawner>().OnNewWave += OnNewWave;
+        FindObjectOfType<EnemySpawner>().OnNewWave += OnNewWave;
 
         if(testFloatingJoystick)
         {
@@ -198,11 +198,12 @@ public class Player : LivingEntity
             {
                 gunController.Reload();
             }
+        }
 
-            if (transform.position.y < -10)
-            {
-                TakeDamage(health);
-            }
+        //Falling
+        if (transform.position.y < -10)
+        {
+            TakeDamage(health);
         }
 
         // Movement Input

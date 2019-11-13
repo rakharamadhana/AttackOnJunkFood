@@ -14,6 +14,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     {
         health = startingHealth;
     }
+
     public virtual void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
     {
         // Do some stuff here with hit var
@@ -27,6 +28,16 @@ public class LivingEntity : MonoBehaviour, IDamageable
         if (health <= 0 && !dead)
         {
             Die();
+        }
+    }
+
+    public virtual void TakeRecovery(float point)
+    {
+        health += point;
+
+        if(health>=startingHealth && !dead)
+        {
+            health = startingHealth;
         }
     }
 

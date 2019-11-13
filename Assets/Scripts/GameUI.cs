@@ -31,7 +31,7 @@ public class GameUI : MonoBehaviour
     public Text monsterDescription;
     public Monster[] monstersInfo;
 
-    Spawner spawner;
+    EnemySpawner spawner;
     Player player;
     Monster currentMonster;
 
@@ -46,7 +46,7 @@ public class GameUI : MonoBehaviour
 
     private void Awake()
     {
-        spawner = FindObjectOfType<Spawner>();
+        spawner = FindObjectOfType<EnemySpawner>();
         spawner.OnNewWave += onNewWave;
     }
 
@@ -152,7 +152,7 @@ public class GameUI : MonoBehaviour
                 }
             }
 
-            newWaveBanner.anchoredPosition = Vector2.up * Mathf.Lerp(-170, 45, animatePercent);
+            newWaveBanner.anchoredPosition = Vector2.down * Mathf.Lerp(150, 375, animatePercent);
 
             yield return null;
         }

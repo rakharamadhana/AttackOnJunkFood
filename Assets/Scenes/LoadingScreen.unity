@@ -475,6 +475,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: {fileID: 818177110}
+  tipsHolderTitle: {fileID: 668259810}
+  tipsHolderContent: {fileID: 1631295726}
+  tips:
+  - tipsTitle: '#1'
+    tipsContent: Ambilah buah-buahan agar kamu dapat pulih dari serangan junk food.
+  - tipsTitle: '#2'
+    tipsContent: Gunakan skill "dash" untuk menghindari serangan junk food.
 --- !u!1 &602230113
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,7 +715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -211, y: 153}
+  m_AnchoredPosition: {x: -167.5, y: 153}
   m_SizeDelta: {x: 335, y: 133.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &668259810
@@ -738,7 +745,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 100
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -862,7 +869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -423, y: -68}
+  m_AnchoredPosition: {x: -423, y: -47.32001}
   m_SizeDelta: {x: 179, y: 378}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &912501339
@@ -975,7 +982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 349.8, y: -173.2}
+  m_AnchoredPosition: {x: 303, y: -173.2}
   m_SizeDelta: {x: 892.8, y: 227.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1631295726
@@ -1011,7 +1018,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ambilah buah-buahan agar kami dapat pulih dari serangan junk food.
+  m_Text: Tips Content
 --- !u!222 &1631295727
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1054,7 +1061,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -316.5, y: -273.68}
+  m_AnchoredPosition: {x: -316.5, y: -253}
   m_SizeDelta: {x: 647, y: 228}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1775895608
