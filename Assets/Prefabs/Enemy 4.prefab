@@ -111,6 +111,10 @@ MonoBehaviour:
   startingHealth: 5
   deathEffect: {fileID: 8782823133753233061, guid: bc2fca46ad63f3d4f9a3d2b61af26976,
     type: 3}
+  scorePoint: 35
+  moveSpeed: 5
+  hitsToKillPlayer: 2
+  enemyHealth: 4
 --- !u!195 &1286610039617361624
 NavMeshAgent:
   m_ObjectHideFlags: 0

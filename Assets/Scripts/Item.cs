@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour
-{
+{    
     private Player playerEntity;
+    public int scorePoint;
+    public int healthPoint;
+    public GameObject scoreKeeper;
 
     private void Awake()
     {
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
             playerEntity = FindObjectOfType<Player>();
-        }
+        }        
     }
 
     // Start is called before the first frame update
@@ -28,11 +31,13 @@ public class Item : MonoBehaviour
 
     private void OnCollisionEnter(Collision collider)
     {
+        
         if(collider.gameObject.name == "Player")
         {
             //Debug.Log("GET");
             AudioManager.instance.PlaySound("Item Get", transform.position);
-            playerEntity.TakeRecovery(5);
+            playerEntity.TakeRecovery(healthPoint);
+            scoreKeeper.GetComponent<ScoreKeeper>().AddScore(scorePoint);
             Destroy(gameObject);
         }
     }

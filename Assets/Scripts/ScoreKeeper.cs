@@ -29,7 +29,19 @@ public class ScoreKeeper : MonoBehaviour
 
         lastEnemyKilledTime = Time.time;
 
-        score += 5 + (int)Mathf.Pow(2,streakCount);
+        AddScore(10);
+    }
+
+    public void AddScore(int value)
+    {
+        if (streakCount > 0)
+        {
+            score += value * streakCount;
+        }
+        else
+        {
+            score += value;
+        }
     }
 
     void OnPlayerDeath()

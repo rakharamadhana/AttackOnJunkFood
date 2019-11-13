@@ -29,6 +29,9 @@ public class GameUI : MonoBehaviour
     public Text monsterName;
     public Image monsterImage;
     public Text monsterDescription;
+    public Image monsterCalorieBar;
+    public Image monsterSaltBar;
+    public Image monsterDiseaseBar;
     public Monster[] monstersInfo;
 
     EnemySpawner spawner;
@@ -112,10 +115,16 @@ public class GameUI : MonoBehaviour
 
     void updateMonsterInfo(int currentWave)
     {
+        int maxRate = 5;
+
         currentMonster = monstersInfo[currentWave];
         monsterName.text = currentMonster.monsterName;
         monsterImage.gameObject.GetComponent<Image>().sprite = currentMonster.monsterImage;
         monsterDescription.gameObject.GetComponent<Text>().text = currentMonster.monsterDescription;
+        monsterCalorieBar.gameObject.GetComponent<Image>().fillAmount = currentMonster.monsterCalorieRate/maxRate;
+        monsterSaltBar.gameObject.GetComponent<Image>().fillAmount = currentMonster.monsterSaltRate/maxRate;
+        monsterDiseaseBar.gameObject.GetComponent<Image>().fillAmount = currentMonster.monsterDiseaseRate/maxRate;
+
     }
 
     void OnGameOver()
@@ -205,6 +214,14 @@ public class GameUI : MonoBehaviour
     {
         public string monsterName;
         public Sprite monsterImage;
+
+        [Range(0,5)]
+        public float monsterCalorieRate;
+        [Range(0, 5)]
+        public float monsterSaltRate;
+        [Range(0, 5)]
+        public float monsterDiseaseRate;
+
         [TextArea]
         public string monsterDescription;
     }

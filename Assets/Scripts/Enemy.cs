@@ -10,7 +10,12 @@ public class Enemy : LivingEntity
     State currentState;
 
     public ParticleSystem deathEffect;
+    public int scorePoint;
     public static event System.Action OnDeathStatic;
+
+    public float moveSpeed;
+    public float hitsToKillPlayer;
+    public float enemyHealth;
 
     NavMeshAgent pathfinder;
     Transform target;
@@ -32,7 +37,7 @@ public class Enemy : LivingEntity
     private void Awake()
     {
         pathfinder = GetComponent<NavMeshAgent>();
-
+        SetCharacteristics();
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
             playerEntity = FindObjectOfType<Player>();
@@ -58,24 +63,24 @@ public class Enemy : LivingEntity
         }
     }
 
-    public void SetCharacteristics(float moveSpeed, int hitsToKillPlayer, float enemyHealth, Color skinColour)
+    private void SetCharacteristics()
     {
         ParticleSystem ps = deathEffect.GetComponent<ParticleSystem>();
         ParticleSystem.MainModule psmain = ps.main;
 
         pathfinder.speed = moveSpeed;
 
-        if(hasTarget)
+        if (hasTarget)
         {
             damage = Mathf.Ceil(targetEntity.startingHealth / hitsToKillPlayer);
         }
         startingHealth = enemyHealth;
 
-        psmain.startColor = new Color(skinColour.r, skinColour.g, skinColour.b, 1);
         skinMaterial = GetComponent<Renderer>().material;
-        skinMaterial.color = skinColour;
+
         originalColor = skinMaterial.color;
     }
+
     public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
     {
         AudioManager.instance.PlaySound("Impact", transform.position);

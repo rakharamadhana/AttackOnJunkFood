@@ -106,7 +106,7 @@ public class EnemySpawner : MonoBehaviour
             ParticleSystem spawnFx = spawnEffect.GetComponent<ParticleSystem>();
             ParticleSystem.MainModule spawnFxMain = spawnFx.main;
 
-            spawnFxMain.startColor = new Color(currentWave.skinColour.r, currentWave.skinColour.g, currentWave.skinColour.b, 1);
+            spawnFxMain.startColor = new Color(255,0,0,1);
             Destroy(Instantiate(spawnEffect.gameObject, spawnTile.transform), .5f);
 
             spawnTimer += Time.deltaTime;
@@ -117,7 +117,7 @@ public class EnemySpawner : MonoBehaviour
 
         Enemy spawnedEnemy = Instantiate(currentWave.enemy[Random.Range(0, currentWave.enemy.Length)], spawnTile.position + Vector3.up, Quaternion.identity) as Enemy;
         spawnedEnemy.OnDeath += OnEnemyDeath;
-        spawnedEnemy.SetCharacteristics(currentWave.moveSpeed, currentWave.hitsToKillPlayer, currentWave.enemyHealth, currentWave.skinColour);
+        //spawnedEnemy.SetCharacteristics(currentWave.moveSpeed, currentWave.hitsToKillPlayer, currentWave.enemyHealth, currentWave.skinColour);
     }
 
     void OnPlayerDeath()
@@ -157,6 +157,7 @@ public class EnemySpawner : MonoBehaviour
             enemiesRemainingToSpawn = currentWave.enemyCount;
             enemiesRemainingAlive = enemiesRemainingToSpawn;
             RestockItem();
+            CleanBox();
             if(OnNewWave != null)
             {
                 OnNewWave(currentWaveNumber);
@@ -174,17 +175,20 @@ public class EnemySpawner : MonoBehaviour
         itemSpawner.GetComponent<ItemSpawner>().itemsRemainingToSpawn = maxItemToSpawn;
     }
 
+    void CleanBox()
+    {
+        foreach (Box box in FindObjectsOfType<Box>())
+        {
+            GameObject.Destroy(box.gameObject);
+        }
+    }
+
     [System.Serializable]
     public class Wave
     {
         public bool infinite;
         public int enemyCount;
         public float timeBetweenSpawn;
-
-        public float moveSpeed;
-        public int hitsToKillPlayer;
-        public float enemyHealth;
-        public Color skinColour;
 
         public Enemy[] enemy;
     }

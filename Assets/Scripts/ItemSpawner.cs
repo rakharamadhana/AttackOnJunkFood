@@ -8,9 +8,7 @@ public class ItemSpawner : MonoBehaviour
     public bool infinite;
 
     public GameObject monsterInfoUI;
-
-    int currentWaveNumber = 0;
-
+    public ParticleSystem spawnEffect;
     public GameObject enemySpawner;
     public Item[] item;
 
@@ -18,14 +16,11 @@ public class ItemSpawner : MonoBehaviour
     int enemyLeft;
 
     public int itemsRemainingToSpawn = 5;
-    public float timeBetweenSpawn = 1f;
-    public int itemsRemainingAlive;
+    public float timeBetweenSpawnMin = 1f;
+    public float timeBetweenSpawnMax = 10f;
+    public int itemsRemaining;
     float nextSpawnTime;
     int maxItems;
-
-    bool isDisabled;
-
-    public event System.Action<int> OnNewWave;
 
     private void Start()
     {        
@@ -37,17 +32,18 @@ public class ItemSpawner : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("Camping: "+isCamping);
-        if (!isDisabled)
-        {
-            if ((itemsRemainingToSpawn > 0 || infinite) && Time.time > nextSpawnTime && monsterInfoUI.gameObject.activeSelf != true)
-            {
-                itemsRemainingToSpawn--;
-                nextSpawnTime = Time.time + timeBetweenSpawn;
+        itemsRemaining = FindObjectsOfType<Item>().Length;
 
-                StartCoroutine("SpawnItem");
-            }
+        //Debug.Log("Camping: "+isCamping);
+        if ((itemsRemainingToSpawn > 0 || infinite) && Time.time > nextSpawnTime && monsterInfoUI.gameObject.activeSelf != true && itemsRemaining < 3)
+        {
+            itemsRemainingToSpawn--;
+            nextSpawnTime = Time.time + Random.Range(timeBetweenSpawnMin,timeBetweenSpawnMax);
+            //Debug.Log(nextSpawnTime);
+
+            StartCoroutine("SpawnItem");
         }
+        
     }
 
     IEnumerator SpawnItem()
@@ -60,13 +56,20 @@ public class ItemSpawner : MonoBehaviour
 
         while (spawnTimer < spawnDelay)
         {
-            spawnTimer += Time.deltaTime;
+            ParticleSystem spawnFx = spawnEffect.GetComponent<ParticleSystem>();
+            ParticleSystem.MainModule spawnFxMain = spawnFx.main;
+
+            spawnFxMain.startColor = new Color(0, 255, 0, 1);
+            if(spawnTile != null) Destroy(Instantiate(spawnEffect.gameObject, spawnTile.transform), .5f);
+
+            spawnTimer += .5f + Time.deltaTime;
             yield return null;
         }
         
         if(spawnTile != null)
         {
-            Item spawnedItem = Instantiate(item[Random.Range(0, item.Length)], spawnTile.position + Vector3.up, Quaternion.identity) as Item;
+            AudioManager.instance.PlaySound("Item Spawn", spawnTile.position);
+            Item spawnedItem = Instantiate(item[Random.Range(0, item.Length)], spawnTile.position, Quaternion.identity) as Item;
         }
 
     }
