@@ -37,8 +37,17 @@ public class Item : MonoBehaviour
             //Debug.Log("GET");
             AudioManager.instance.PlaySound("Item Get", transform.position);
             playerEntity.TakeRecovery(healthPoint);
-            scoreKeeper.GetComponent<ScoreKeeper>().AddScore(scorePoint);
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        AddScore(scorePoint);
+    }
+
+    public void AddScore(int value)
+    {
+        ScoreKeeper.score += value;
     }
 }

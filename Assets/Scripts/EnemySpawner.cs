@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
     Vector3 campPositionOld;
     bool isCamping;
 
-    bool isDisabled;
+    public bool isDisabled;
 
     public event System.Action<int> OnNewWave;
 
@@ -82,6 +82,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     GameObject.Destroy(enemy.gameObject);
                 }
+                playerEntity.GetComponent<GunController>().EquipGun(0);
                 NextWave();
             }
         }
@@ -89,7 +90,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        float spawnDelay = 2f;
+        float spawnDelay = 1f;
 
         Transform spawnTile = map.GetRandomOpenTile();
         if(isCamping)
@@ -127,10 +128,14 @@ public class EnemySpawner : MonoBehaviour
 
     void OnEnemyDeath()
     {
-        enemiesRemainingAlive--;
-
-        if(enemiesRemainingAlive == 0)
+        if (!currentWave.infinite)
         {
+            enemiesRemainingAlive--;
+        }
+        
+        if(enemiesRemainingAlive == 0 && !currentWave.infinite)
+        {
+            playerEntity.GetComponent<GunController>().EquipGun(0);
             NextWave();
         }
     }

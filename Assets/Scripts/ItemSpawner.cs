@@ -20,13 +20,12 @@ public class ItemSpawner : MonoBehaviour
     public float timeBetweenSpawnMax = 10f;
     public int itemsRemaining;
     float nextSpawnTime;
-    int maxItems;
+    public int maxItems;
 
     private void Start()
     {        
         map = FindObjectOfType<MapGenerator>();
         
-        maxItems = itemsRemainingToSpawn;
         enemyLeft = enemySpawner.GetComponent<EnemySpawner>().enemiesRemainingAlive;
     }
 

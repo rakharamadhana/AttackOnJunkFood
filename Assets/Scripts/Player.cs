@@ -71,6 +71,12 @@ public class Player : LivingEntity
             rotationJoystick.gameObject.SetActive(true);
             crosshairs.gameObject.SetActive(false);
         }
+        else
+        {
+            movementJoystick.gameObject.SetActive(false);
+            rotationJoystick.gameObject.SetActive(false);
+            crosshairs.gameObject.SetActive(true);
+        }
     }
 
     void OnNewWave(int waveNumber)

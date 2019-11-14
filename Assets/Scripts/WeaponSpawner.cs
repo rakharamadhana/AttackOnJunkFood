@@ -20,13 +20,12 @@ public class WeaponSpawner : MonoBehaviour
     public float timeBetweenSpawnMax = 10f;
     public int boxesRemaining;
     float nextSpawnTime;
-    int maxBoxes;
+    public int maxBoxes;
 
     private void Start()
     {
         map = FindObjectOfType<MapGenerator>();
 
-        maxBoxes = boxesRemainingToSpawn;
         enemyLeft = enemySpawner.GetComponent<EnemySpawner>().enemiesRemainingAlive;
     }
 
@@ -35,7 +34,7 @@ public class WeaponSpawner : MonoBehaviour
         boxesRemaining = FindObjectsOfType<Box>().Length;
 
         //Debug.Log("Camping: "+isCamping);
-        if ((boxesRemainingToSpawn > 0 || infinite) && Time.time > nextSpawnTime && monsterInfoUI.gameObject.activeSelf != true && boxesRemaining < 3)
+        if ((boxesRemainingToSpawn > 0 || infinite) && Time.time > nextSpawnTime && monsterInfoUI.gameObject.activeSelf != true && boxesRemaining < maxBoxes)
         {
             boxesRemainingToSpawn--;
             nextSpawnTime = Time.time + Random.Range(timeBetweenSpawnMin, timeBetweenSpawnMax);
@@ -62,7 +61,7 @@ public class WeaponSpawner : MonoBehaviour
             spawnFxMain.startColor = new Color(0, 0, 255, 1);
             if (spawnTile != null) Destroy(Instantiate(spawnEffect.gameObject, spawnTile.transform), .5f);
 
-            spawnTimer += 1 + Time.deltaTime;
+            spawnTimer += .5f + Time.deltaTime;
             yield return null;
         }
 

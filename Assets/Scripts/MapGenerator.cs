@@ -5,6 +5,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     public Map[] maps;
+    [Range(0,10)]
     public int mapIndex;
 
     public Transform tilePrefab;

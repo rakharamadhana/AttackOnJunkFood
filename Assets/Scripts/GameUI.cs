@@ -60,6 +60,7 @@ public class GameUI : MonoBehaviour
         comboUI.text = ScoreKeeper.streakCount.ToString("D2");
 
         int enemyCount = spawner.enemiesRemainingAlive;
+
         enemyCountUI.text = enemyCount.ToString("D2");
 
         float healthPercent = 0;
@@ -103,7 +104,7 @@ public class GameUI : MonoBehaviour
     void onNewWave(int waveNumber)
     {
         //Debug.Log(waveNumber);
-        string[] numbers = { "One", "Two", "Three", "Four", "Five" };
+        string[] numbers = { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Bonus"};
         newWaveTitle.text = "- Level " + numbers[waveNumber - 1] + " -";
         string enemyCountString = ((spawner.waves[waveNumber-1].infinite)?"Infinite":spawner.waves[waveNumber-1].enemyCount +"");
         newWaveEnemyCount.text = "Enemies: " + enemyCountString;

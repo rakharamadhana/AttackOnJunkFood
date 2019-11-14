@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : LivingEntity
@@ -16,6 +17,7 @@ public class Enemy : LivingEntity
     public float moveSpeed;
     public float hitsToKillPlayer;
     public float enemyHealth;
+    public Image healthbar;
 
     NavMeshAgent pathfinder;
     Transform target;
@@ -37,14 +39,14 @@ public class Enemy : LivingEntity
     private void Awake()
     {
         pathfinder = GetComponent<NavMeshAgent>();
-        SetCharacteristics();
+        
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
             playerEntity = FindObjectOfType<Player>();
             hasTarget = true;
             target = GameObject.FindGameObjectWithTag("Player").transform;
             targetEntity = target.GetComponent<LivingEntity>();
-
+            originalColor = gameObject.GetComponentInChildren<Renderer>().material.color;
             myCollisionRadius = GetComponent<CapsuleCollider>().radius;
             targetCollisionRadius = target.GetComponentInChildren<CapsuleCollider>().radius;
         }
@@ -53,7 +55,9 @@ public class Enemy : LivingEntity
     // Start is called before the first frame update
     protected override void Start()
     {
+        SetCharacteristics();
         base.Start();
+        gameObject.GetComponentInChildren<Renderer>().material.color = originalColor;
         if (hasTarget)
         {
             currentState = State.Chasing;
@@ -74,17 +78,15 @@ public class Enemy : LivingEntity
         {
             damage = Mathf.Ceil(targetEntity.startingHealth / hitsToKillPlayer);
         }
+
         startingHealth = enemyHealth;
-
-        skinMaterial = GetComponent<Renderer>().material;
-
-        originalColor = skinMaterial.color;
     }
 
     public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
     {
         AudioManager.instance.PlaySound("Impact", transform.position);
-        if(damage >= health)
+        healthbar.fillAmount -= damage / enemyHealth;
+        if (damage >= health)
         {
             if(OnDeathStatic != null)
             {
@@ -95,6 +97,23 @@ public class Enemy : LivingEntity
             Destroy(Instantiate(deathEffect.gameObject, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject,deathEffect.main.startLifetime.constant);
         }
         base.TakeHit(damage, hitPoint, hitDirection);
+    }
+
+    private void OnDestroy()
+    {
+        AddScore(scorePoint);
+    }
+
+    public void AddScore(int value)
+    {
+        if (ScoreKeeper.streakCount > 0)
+        {
+            ScoreKeeper.score += value * ScoreKeeper.streakCount;
+        }
+        else
+        {
+            ScoreKeeper.score += value;
+        }
     }
 
     void OnTargetDeath()
@@ -137,7 +156,7 @@ public class Enemy : LivingEntity
         float attackSpeed = 3;
         float percent = 0;
 
-        skinMaterial.color = Color.white;
+        //skinMaterial.color = Color.white;
         bool hasAppliedDamage = false;
 
         while (percent <= 1 )
@@ -153,7 +172,7 @@ public class Enemy : LivingEntity
 
             yield return null;
         }
-        skinMaterial.color = originalColor;
+        //skinMaterial.color = originalColor;
         currentState = State.Chasing;
         pathfinder.enabled = true;
     }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ScoreKeeper : MonoBehaviour
 {
-    public static int score { get; private set; }
+    public static int score { get; set; }
     float lastEnemyKilledTime;
-    public static int streakCount { get; private set; }
+    public static int streakCount { get; set; }
     float streakExpiryTime = 1;
 
     private void Start()
@@ -28,10 +28,7 @@ public class ScoreKeeper : MonoBehaviour
         }
 
         lastEnemyKilledTime = Time.time;
-
-        AddScore(10);
     }
-
     public void AddScore(int value)
     {
         if (streakCount > 0)
