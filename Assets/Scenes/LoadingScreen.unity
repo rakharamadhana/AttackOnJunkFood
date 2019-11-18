@@ -475,42 +475,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: {fileID: 818177110}
-  tipsHolderTitle: {fileID: 668259810}
   tipsHolderContent: {fileID: 1631295726}
   tips:
-  - tipsTitle: '#1'
-    tipsContent: Ambilah buah-buahan agar kamu dapat pulih dari serangan junk food.
-  - tipsTitle: '#2'
-    tipsContent: Gunakan skill "dash" untuk menghindari serangan junk food.
-  - tipsTitle: '#3'
-    tipsContent: Ambilah buah-buahan bertanda kuning untuk meningkatkan kekuatan senjatamu.
-  - tipsTitle: '#4'
-    tipsContent: Jumlah kalori yang dibutuhkan oleh manusia per hari itu 2000 (wanita)
+  - tipsContent: Ambilah buah-buahan agar kamu dapat pulih dari serangan junk food.
+  - tipsContent: Gunakan skill "dash" untuk menghindari serangan junk food.
+  - tipsContent: Ambilah buah-buahan bertanda kuning untuk meningkatkan kekuatan senjatamu.
+  - tipsContent: Jumlah kalori yang dibutuhkan oleh manusia per hari itu 2000 (wanita)
       dan 2500 (pria).
-  - tipsTitle: '#5'
-    tipsContent: Jumlah garam yang banyak dalam tubuh bisa memicu berbagai penyakit.
-  - tipsTitle: '#6'
-    tipsContent: Junk food tidak akan bisa menyerang ketika kamu menggunakan "dash"
-  - tipsTitle: '#7'
-    tipsContent: Fakta mengenai junk food pada game diambil dari sumber yang beragam.
-  - tipsTitle: '#8'
-    tipsContent: Buah bertanda hijau akan memulihkan darahmu dari serangan junk food.
-  - tipsTitle: '#9'
-    tipsContent: Senjatamu akan berubah ketika kamu mengkonsumsi makanan bertanda
+  - tipsContent: Jumlah garam yang banyak dalam tubuh bisa memicu berbagai penyakit.
+  - tipsContent: Junk food tidak akan bisa menyerang ketika kamu menggunakan "dash"
+  - tipsContent: Fakta mengenai junk food pada game diambil dari sumber yang beragam.
+  - tipsContent: Buah bertanda hijau akan memulihkan darahmu dari serangan junk food.
+  - tipsContent: Senjatamu akan berubah ketika kamu mengkonsumsi makanan bertanda
       kuning.
-  - tipsTitle: '#10'
-    tipsContent: Sudahkah kamu makan sehat hari ini?
-  - tipsTitle: '#11'
-    tipsContent: Junk food merupakan sekelompok makanan yang memiliki sedikit gizi,
+  - tipsContent: Sudahkah kamu makan sehat hari ini?
+  - tipsContent: Junk food merupakan sekelompok makanan yang memiliki sedikit gizi,
       vitamin, dan mineral.
-  - tipsTitle: '#12'
-    tipsContent: Mengkonsumsi kalori yang berlebihan dapat membuatmu obesitas.
-  - tipsTitle: '#13'
-    tipsContent: Hati-hati mengkonsumsi jumlah garam yang banyak bisa membuatmu hipertensi.
-  - tipsTitle: '#14'
-    tipsContent: Hati-hati terkena diabetes ketika mengkonsumsi gula secara berlebihan.
-  - tipsTitle: '#15'
-    tipsContent: Cintai tubuhmu, atur pola makan mu!
+  - tipsContent: Mengkonsumsi kalori yang berlebihan dapat membuatmu obesitas.
+  - tipsContent: Hati-hati mengkonsumsi jumlah garam yang banyak bisa membuatmu hipertensi.
+  - tipsContent: Hati-hati terkena diabetes ketika mengkonsumsi gula secara berlebihan.
+  - tipsContent: Cintai tubuhmu, atur pola makan mu!
 --- !u!1 &602230113
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +605,6 @@ GameObject:
   - component: {fileID: 649861097}
   - component: {fileID: 649861099}
   - component: {fileID: 649861098}
-  - component: {fileID: 649861100}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -643,7 +626,7 @@ RectTransform:
   - {fileID: 930860153}
   - {fileID: 1775895607}
   - {fileID: 912501338}
-  - {fileID: 668259809}
+  - {fileID: 1631295725}
   m_Father: {fileID: 602230117}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -689,105 +672,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649861096}
-  m_CullTransparentMesh: 0
---- !u!95 &649861100
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 649861096}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d3813b48028f06f47a8c949baed684a6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &668259808
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 668259809}
-  - component: {fileID: 668259811}
-  - component: {fileID: 668259810}
-  m_Layer: 5
-  m_Name: Tips
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &668259809
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668259808}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1631295725}
-  m_Father: {fileID: 649861097}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -167.5, y: 153}
-  m_SizeDelta: {x: 335, y: 133.9}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &668259810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668259808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 4f4e151701e7f9344b554fcae425fef5, type: 3}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 100
-    m_Alignment: 3
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: TIPS
---- !u!222 &668259811
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668259808}
   m_CullTransparentMesh: 0
 --- !u!1 &818177108
 GameObject:
@@ -1006,13 +890,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 668259809}
-  m_RootOrder: 0
+  m_Father: {fileID: 649861097}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 303, y: -173.2}
-  m_SizeDelta: {x: 892.8, y: 227.8}
+  m_AnchoredPosition: {x: 135.5, y: 10.6}
+  m_SizeDelta: {x: 892.8, y: 262.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1631295726
 MonoBehaviour:
@@ -1036,7 +920,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4f4e151701e7f9344b554fcae425fef5, type: 3}
-    m_FontSize: 40
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4

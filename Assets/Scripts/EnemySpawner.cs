@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -11,12 +12,17 @@ public class EnemySpawner : MonoBehaviour
     public ParticleSystem spawnEffect;
     public GameObject monsterInfoUI;
     public GameObject itemSpawner;
+    public GameObject winningUI;
+    public Text winningTextUI;
+    public Text winningScoreTextUI;
+    public GameObject winningOriginalButton;
+    public GameObject winningLastButton;
 
     LivingEntity playerEntity;
     Transform playerT;
 
     Wave currentWave;
-    int currentWaveNumber;
+    public int currentWaveNumber { get; private set; }
 
     int enemiesRemainingToSpawn;
     int maxItemToSpawn;
@@ -86,6 +92,11 @@ public class EnemySpawner : MonoBehaviour
                 NextWave();
             }
         }
+
+        if(enemiesRemainingAlive == 0)
+        {
+            winningScoreTextUI.GetComponent<Text>().text = ScoreKeeper.score.ToString("D6");
+        }
     }
 
     IEnumerator SpawnEnemy()
@@ -128,6 +139,8 @@ public class EnemySpawner : MonoBehaviour
 
     void OnEnemyDeath()
     {
+        string[] numbers = { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Bonus" };
+
         if (!currentWave.infinite)
         {
             enemiesRemainingAlive--;
@@ -135,8 +148,17 @@ public class EnemySpawner : MonoBehaviour
         
         if(enemiesRemainingAlive == 0 && !currentWave.infinite)
         {
-            playerEntity.GetComponent<GunController>().EquipGun(0);
-            NextWave();
+            winningTextUI.GetComponent<Text>().text = "Level " + numbers[currentWaveNumber - 1] + " Completed";
+            if(currentWaveNumber == 11)
+            {
+                winningTextUI.GetComponent<Text>().text = "Game Completed";
+                winningOriginalButton.SetActive(false);
+                winningLastButton.SetActive(true);
+            }
+            Cursor.visible = true;
+            AudioManager.instance.PlaySound("Level Completed", playerEntity.transform.position);
+            winningUI.SetActive(true);
+            //NextWave();
         }
     }
 
@@ -145,13 +167,10 @@ public class EnemySpawner : MonoBehaviour
         playerT.position = map.GetTileFromPosition(Vector3.zero).position + Vector3.up * 2;
     }
 
-    void NextWave()
+    public void NextWave()
     {
-
-        if(currentWaveNumber > 0)
-        {
-            AudioManager.instance.PlaySound("Level Completed", Vector3.zero);
-        }
+        //Time.timeScale = 1f;
+        Cursor.visible = false;
 
         currentWaveNumber ++;
         //print("Wave: " + currentWaveNumber);
@@ -161,6 +180,7 @@ public class EnemySpawner : MonoBehaviour
 
             enemiesRemainingToSpawn = currentWave.enemyCount;
             enemiesRemainingAlive = enemiesRemainingToSpawn;
+            playerEntity.GetComponent<GunController>().EquipGun(0);
             RestockItem();
             CleanBox();
             if(OnNewWave != null)
@@ -168,6 +188,7 @@ public class EnemySpawner : MonoBehaviour
                 OnNewWave(currentWaveNumber);
             }
         }
+        winningUI.SetActive(false);
         ResetPlayerPosition();
     }
 

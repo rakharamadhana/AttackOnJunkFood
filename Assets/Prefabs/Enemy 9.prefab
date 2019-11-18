@@ -114,8 +114,8 @@ MonoBehaviour:
     type: 3}
   scorePoint: 50
   moveSpeed: 3
-  hitsToKillPlayer: 2
-  enemyHealth: 10
+  hitsToKillPlayer: 3
+  enemyHealth: 7
   healthbar: {fileID: 4912113625717281530}
 --- !u!195 &258866846243001691
 NavMeshAgent:

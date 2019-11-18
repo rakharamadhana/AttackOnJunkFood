@@ -13,10 +13,13 @@ public class TutorialManager : MonoBehaviour
     public EnemySpawner enemySpawner;
     public float waitTime = 2f;
 
+    bool isReady;
+
     // Start is called before the first frame update
     void Start()
     {
         enemySpawner.isDisabled = true;
+        isReady = false;
     }
 
     // Update is called once per frame
@@ -36,7 +39,7 @@ public class TutorialManager : MonoBehaviour
 
         if (popUpIndex == 0)
         {
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0 || movementJoystick.Horizontal != 0 || movementJoystick.Vertical != 0)
+            if (isReady == true)
             {
                 //Debug.Log("Moving");
                 popUpIndex++;
@@ -45,26 +48,13 @@ public class TutorialManager : MonoBehaviour
         }
         else if (popUpIndex == 1)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) || rotationJoystick.Horizontal != 0 || rotationJoystick.Vertical != 0)
-            {
-                //Debug.Log("Shooting");
-                popUpIndex++;
-            }
-        }
-        else if (popUpIndex == 2)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) || player.isDashing)
-            {
-                //Debug.Log("Dashing");
-                popUpIndex++;
-            }
-        }
-        else
-        {
             enemySpawner.isDisabled = false;
             Destroy(gameObject);
         }
+    }
 
-        //Debug.Log(popUpIndex);
+    public void Ready()
+    {
+        isReady = true;
     }
 }

@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class SceneLoading : MonoBehaviour
 {
     public Image progressBar;
-    public Text tipsHolderTitle;
     public Text tipsHolderContent;
     public Tips[] tips;
 
@@ -23,7 +22,6 @@ public class SceneLoading : MonoBehaviour
 
     void Update()
     {
-        tipsHolderTitle.text = "TIPS "+currentTips.tipsTitle;
         tipsHolderContent.text = currentTips.tipsContent;
     }
 
@@ -46,8 +44,6 @@ public class SceneLoading : MonoBehaviour
     [System.Serializable]
     public class Tips
     {
-        public string tipsTitle;
-
         [TextArea]
         public string tipsContent;
     }

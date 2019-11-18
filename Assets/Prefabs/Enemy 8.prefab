@@ -363,9 +363,9 @@ MonoBehaviour:
   deathEffect: {fileID: 8782823133753233061, guid: bc2fca46ad63f3d4f9a3d2b61af26976,
     type: 3}
   scorePoint: 50
-  moveSpeed: 6
+  moveSpeed: 5
   hitsToKillPlayer: 3
-  enemyHealth: 3
+  enemyHealth: 4
   healthbar: {fileID: 6236429294199255998}
 --- !u!195 &7103183120895480468
 NavMeshAgent:

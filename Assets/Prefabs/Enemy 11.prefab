@@ -101,7 +101,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 6
+  m_Radius: 4
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
   startingHealth: 5
   deathEffect: {fileID: 8782823133753233061, guid: bc2fca46ad63f3d4f9a3d2b61af26976,
     type: 3}
-  scorePoint: 10000
+  scorePoint: 100000
   moveSpeed: 4
   hitsToKillPlayer: 2
   enemyHealth: 9999

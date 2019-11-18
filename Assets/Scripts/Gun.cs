@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class Gun : MonoBehaviour
     public Light muzzleFlashLight;
     public AudioClip shootAudio;
     public AudioClip reloadAudio;
+    public Image reloadBar;
 
     float nextShotTime;
 
@@ -48,6 +50,7 @@ public class Gun : MonoBehaviour
         //muzzleFlashLight.gameObject.SetActive(false);
         shotsRemainingInBurst = burstCount;
         projectilesRemainingInMag = projectilesPerMag;
+        reloadBar.fillAmount = 0;
     }
 
     void LateUpdate()
@@ -132,11 +135,12 @@ public class Gun : MonoBehaviour
             float reloadAngle = Mathf.Lerp(0, maxReloadAngle, interpolation);
 
             transform.localEulerAngles = initialRotation + Vector3.left * reloadAngle;
-
+            reloadBar.fillAmount = percent;
             yield return null;
         }
 
         isReloading = false;
+        reloadBar.fillAmount = 0;
         projectilesRemainingInMag = projectilesPerMag;
     }
 

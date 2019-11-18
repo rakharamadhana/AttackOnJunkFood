@@ -19,10 +19,12 @@ public class GameUI : MonoBehaviour
     public Text enemyCountUI;
     public Text gameOverScoreUI;
     public GameObject dashButton;
+    public GameObject pauseButton;
     public GameObject leftJoystick;
     public GameObject rightJoystick;
     public RectTransform healthBar;
     public RectTransform staminaBar;
+    public AudioClip bossTheme;
 
     [Header("Monster Info UI")]
     public GameObject monsterInfoUI;
@@ -75,6 +77,7 @@ public class GameUI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Cursor.visible = true;
             if (gameIsPaused)
             {
                 ResumeGame();
@@ -92,10 +95,12 @@ public class GameUI : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
+        Cursor.visible = false;
     }
 
-    void PauseGame()
+    public void PauseGame()
     {
+        Cursor.visible = true;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
@@ -106,6 +111,11 @@ public class GameUI : MonoBehaviour
         //Debug.Log(waveNumber);
         string[] numbers = { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Bonus"};
         newWaveTitle.text = "- Level " + numbers[waveNumber - 1] + " -";
+        if (waveNumber == 11)
+        {
+            newWaveTitle.text = "- Final Boss -";
+            AudioManager.instance.PlayMusic(bossTheme, 5);
+        }
         string enemyCountString = ((spawner.waves[waveNumber-1].infinite)?"Infinite":spawner.waves[waveNumber-1].enemyCount +"");
         newWaveEnemyCount.text = "Enemies: " + enemyCountString;
 
@@ -133,6 +143,7 @@ public class GameUI : MonoBehaviour
         Cursor.visible = true;
         StartCoroutine(Fade(Color.clear, new Color(0,0,0,.95f), 1));
         gameOverScoreUI.text = scoreUI.text;
+        pauseButton.gameObject.SetActive(false);
         dashButton.gameObject.SetActive(false);
         leftJoystick.gameObject.SetActive(false);
         rightJoystick.gameObject.SetActive(false);

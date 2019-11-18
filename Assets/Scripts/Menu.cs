@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
 {
     public GameObject mainMenuHolder;
     public GameObject optionsMenuHolder;
+    public GameObject popupHolder;
     public GameObject tutorialHolder;
 
     public Slider[] volumeSliders;
@@ -60,7 +61,14 @@ public class Menu : MonoBehaviour
     public void Tutorial()
     {
         mainMenuHolder.SetActive(false);
+        popupHolder.SetActive(false);
         tutorialHolder.SetActive(true);
+    }
+
+    public void Popup()
+    {
+        mainMenuHolder.SetActive(false);
+        popupHolder.SetActive(true);
     }
 
     public void SetScreenResolution(int i)

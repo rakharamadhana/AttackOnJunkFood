@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GunController))]
 public class Player : LivingEntity
 {
-    public bool testFloatingJoystick = true;
+    public bool androidController = true;
     public float moveSpeed = 5;
     public float maxDashTime = 1.0f;
     public float dashSpeed = 1.0f;
@@ -64,7 +64,7 @@ public class Player : LivingEntity
 
         FindObjectOfType<EnemySpawner>().OnNewWave += OnNewWave;
 
-        if(testFloatingJoystick)
+        if(androidController)
         {
             Cursor.visible = true;
             movementJoystick.gameObject.SetActive(true);
@@ -95,7 +95,7 @@ public class Player : LivingEntity
         float r_vertical;
 
         // Floating Joystick Input
-        if (testFloatingJoystick)
+        if (androidController)
         {
 
             // Joystick Movement Input
@@ -192,7 +192,11 @@ public class Player : LivingEntity
         // Fire
         if (monsterInfoUI.gameObject.activeSelf != true)
         {
-            if (fireButton.Pressed || Input.GetKey(KeyCode.Mouse0))
+            if (fireButton.Pressed && androidController == true)
+            {
+                gunController.OnTriggerHold();
+            }
+            else if (Input.GetKey(KeyCode.Mouse0) && androidController == false)
             {
                 gunController.OnTriggerHold();
             }

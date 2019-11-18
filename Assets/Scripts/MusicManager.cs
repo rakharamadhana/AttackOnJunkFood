@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
 {
+    public EnemySpawner enemySpawner;
     public AudioClip mainTheme;
     public AudioClip menuTheme;
+    public AudioClip bossTheme;
 
     string sceneName;
 
@@ -42,7 +44,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    void PlayMusic()
+    public void PlayMusic()
     {
         AudioClip clipToPlay = null;
 
@@ -53,6 +55,10 @@ public class MusicManager : MonoBehaviour
         }else if(sceneName == "Game")
         {
             clipToPlay = mainTheme;
+            if(enemySpawner.currentWaveNumber == 11)
+            {
+                clipToPlay = bossTheme;
+            }
         }
 
         if(clipToPlay !=null)
