@@ -58882,7 +58882,6 @@ MonoBehaviour:
     type: 3}
   enemySpawner: {fileID: 1717853083}
   box:
-  - {fileID: 5956737032732221514, guid: 7b30989933099a04b9564ecfaf47ae01, type: 3}
   - {fileID: 3851916138078633501, guid: a582194bc9c486f499dcecf41ea06096, type: 3}
   - {fileID: 6152653586896502229, guid: 26a399052946fdc4a99e214b94c319fb, type: 3}
   - {fileID: 8094218869084279515, guid: 06269d246deb1e7428bb736cdbbed7fc, type: 3}
@@ -63532,7 +63531,7 @@ MonoBehaviour:
     - {fileID: 1864487375965248053, guid: 3910d201da86de44899b9f02e7c37262, type: 3}
   - infinite: 0
     enemyCount: 80
-    timeBetweenSpawn: 0.5
+    timeBetweenSpawn: 0.6
     enemy:
     - {fileID: 3163114939370567591, guid: 2880cc46d10cee642adc267c96549b15, type: 3}
     - {fileID: 7943283615650789543, guid: f3a34c8bc53d40f4f883ffbd333a28f2, type: 3}
@@ -63546,7 +63545,7 @@ MonoBehaviour:
     - {fileID: 6818285931537059336, guid: 0d08d900d995dd0479825d2ebcb91ba0, type: 3}
   - infinite: 0
     enemyCount: 1
-    timeBetweenSpawn: 0.3
+    timeBetweenSpawn: 1
     enemy:
     - {fileID: 7919998767038733770, guid: 9391a832efc29924b898d13533361f8a, type: 3}
   spawnEffect: {fileID: 7281146630878519869, guid: 4fca18196b7a1bb429501917c1560375,
